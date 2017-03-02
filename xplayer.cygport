@@ -1,0 +1,53 @@
+inherit python gnome2
+
+NAME="xplayer"
+VERSION=1.2.2
+RELEASE=1
+CATEGORY="Audio Video"
+SUMMARY="Cross-desktop media player"
+DESCRIPTION="Xplayer is movie player for the MATE and Cinnamon desktops based
+on GStreamer. It features a playlist, a full-screen mode, seek and volume
+controls, as well as complete keyboard navigation."
+HOMEPAGE="https://www.linuxmint.com/"
+SRC_URI="https://github.com/linuxmint/xplayer/archive/${VERSION}/xplayer-${VERSION}.tar.gz"
+
+PKG_NAMES="${NAME} ${NAME}-common ${NAME}-devel ${NAME}-doc xplayer-video-thumbnailer"
+xplayer_REQUIRES="xplayer-common grilo0.2-plugins gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-clutter3.0 girepository-Peas1.0"
+xplayer_CONTENTS="
+	etc/
+	usr/bin/cygxplayer-0.dll
+	usr/bin/xplayer.exe
+	usr/lib/girepository-1.0/
+	usr/lib/xplayer/
+	usr/libexec/xplayer*
+	usr/share/applications/
+	usr/share/gir-1.0/
+	usr/share/glib-2.0/
+	usr/share/help/
+	usr/share/man/man1/xplayer.1*
+	usr/share/xplayer/
+"
+xplayer_common_CONTENTS="
+	usr/share/doc/
+	usr/share/icons/
+	usr/share/locale/
+"
+xplayer_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
+xplayer_doc_CATEGORY="Doc"
+xplayer_doc_CONTENTS="usr/share/gtk-doc/"
+xplayer_video_thumbnailer_CATEGORY="MATE"
+xplayer_video_thumbnailer_REQUIRES="xplayer-common gstreamer1.0-plugins-base gstreamer1.0-plugins-good"
+xplayer_video_thumbnailer_CONTENTS="
+	usr/bin/xplayer-audio-preview.exe
+	usr/bin/xplayer-video-thumbnailer.exe
+	usr/share/man/man1/xplayer-video-thumbnailer.1*
+	usr/share/thumbnailers/
+"
+
+ACLOCAL_FLAGS="-I libgd"
+# some plugins use GtkBuilder; -export-dynamic has no effect when linking .la
+LDFLAGS+=" -Wl,--export-all-symbols"
+CYGCONF_ARGS="
+	--disable-browser-plugins
+	PYLINT=/usr/bin/pylint
+"
