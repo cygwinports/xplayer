@@ -12,7 +12,7 @@ HOMEPAGE="https://www.linuxmint.com/"
 SRC_URI="https://github.com/linuxmint/xplayer/archive/${VERSION}/xplayer-${VERSION}.tar.gz"
 
 PKG_NAMES="${NAME} ${NAME}-common ${NAME}-devel ${NAME}-doc xplayer-video-thumbnailer"
-xplayer_REQUIRES="xplayer-common grilo0.2-plugins gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-clutter3.0 girepository-Peas1.0"
+xplayer_REQUIRES="xplayer-common grilo0.2-plugins gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-clutter3.0 girepository-Peas1.0 iso-codes"
 xplayer_CONTENTS="
 	etc/
 	usr/bin/cygxplayer-0.dll
