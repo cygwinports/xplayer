@@ -1,0 +1,50 @@
+Move the XplayerSearchEntry class into libxplayer so that it is found
+by g_module_symbol().  This is necessary due to our gmodule hack.
+
+--- origsrc/xplayer-1.4.2/src/Makefile.am	2017-05-23 07:47:09.000000000 -0500
++++ src/xplayer-1.4.2/src/Makefile.am	2017-06-15 01:06:42.906104300 -0500
+@@ -85,6 +85,8 @@ libxplayer_la_SOURCES = \
+ 	xplayer-subtitle-encoding.c	\
+ 	xplayer-subtitle-encoding.h	\
+ 	xplayer-profile.h			\
++	plugins/grilo/xplayer-search-entry.c	\
++	plugins/grilo/xplayer-search-entry.h	\
+ 	plugins/xplayer-plugins-engine.c	\
+ 	plugins/xplayer-plugins-engine.h	\
+ 	plugins/xplayer-dirs.c
+@@ -97,6 +99,7 @@ libxplayer_la_CPPFLAGS = \
+ libxplayer_la_CFLAGS = \
+ 	$(PLAYER_CFLAGS)		\
+ 	$(AM_CFLAGS)			\
++	-I$(top_srcdir)/libgd/		\
+ 	-I$(srcdir)/gst/
+ 
+ libxplayer_la_LDFLAGS = \
+@@ -107,6 +110,7 @@ libxplayer_la_LDFLAGS = \
+ libxplayer_la_LIBADD = \
+ 	libxplayer_player.la		\
+ 	backend/libbaconvideowidget.la	\
++	$(top_builddir)/libgd/libgd.la	\
+ 	$(PLAYER_LIBS)
+ 
+ if WITH_SMCLIENT
+--- origsrc/xplayer-1.4.2/src/plugins/grilo/Makefile.am	2017-05-23 07:47:09.000000000 -0500
++++ src/xplayer-1.4.2/src/plugins/grilo/Makefile.am	2017-06-15 01:00:23.431919500 -0500
+@@ -14,15 +14,12 @@ conf_DATA = xplayer-grilo.conf
+ EXTRA_DIST += $(conf_DATA)
+ 
+ libgrilo_la_SOURCES =				\
+-	xplayer-grilo.c				\
+-	xplayer-search-entry.c			\
+-	xplayer-search-entry.h
++	xplayer-grilo.c
+ 
+ libgrilo_la_LDFLAGS = $(plugin_ldflags)
+ libgrilo_la_LIBADD =			\
+         $(plugin_libadd)		\
+-        $(LIBGRILO_LIBS)		\
+-        $(top_builddir)/libgd/libgd.la
++        $(LIBGRILO_LIBS)
+ libgrilo_la_CFLAGS =			\
+         $(plugin_cflags)		\
+         $(LIBGRILO_CFLAGS)		\

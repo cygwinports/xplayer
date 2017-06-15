@@ -1,7 +1,7 @@
 inherit python gnome2
 
 NAME="xplayer"
-VERSION=1.2.2
+VERSION=1.4.2
 RELEASE=1
 CATEGORY="Audio Video"
 SUMMARY="Cross-desktop media player"
@@ -10,6 +10,7 @@ on GStreamer. It features a playlist, a full-screen mode, seek and volume
 controls, as well as complete keyboard navigation."
 HOMEPAGE="https://www.linuxmint.com/"
 SRC_URI="https://github.com/linuxmint/xplayer/archive/${VERSION}/xplayer-${VERSION}.tar.gz"
+PATCH_URI="1.4.2-grilo-interface.patch"
 
 PKG_NAMES="${NAME} ${NAME}-common ${NAME}-devel ${NAME}-doc xplayer-video-thumbnailer"
 xplayer_REQUIRES="xplayer-common grilo0.2-plugins gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-clutter3.0 girepository-Peas1.0 iso-codes"
