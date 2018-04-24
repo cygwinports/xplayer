@@ -1,7 +1,7 @@
 inherit python gnome2
 
 NAME="xplayer"
-VERSION=1.4.2
+VERSION=1.6.1
 RELEASE=1
 CATEGORY="Audio Video"
 SUMMARY="Cross-desktop media player"
